@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Job Portal</title>
+    <link rel="stylesheet" href="job-portal.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Career marketplace</p>
+          <h1>Discover your next great role</h1>
+          <p>
+            Explore curated job opportunities, filter by skills, company, and
+            job type, then save the ones you love for later.
+          </p>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span id="jobCount">0</span>
+            <small>Open jobs</small>
+          </div>
+          <div class="stat-card">
+            <span id="savedCount">0</span>
+            <small>Saved jobs</small>
+          </div>
+        </div>
+      </header>
+
+      <section class="filter-panel">
+        <div class="filter-grid">
+          <div class="filter-item">
+            <label for="keywordInput">Keyword search</label>
+            <input
+              id="keywordInput"
+              type="search"
+              placeholder="Search by title, company, skill..."
+            />
+          </div>
+          <div class="filter-item">
+            <label for="companySelector">Company</label>
+            <div id="companySelector" class="custom-select" tabindex="0" data-type="company">
+              <span class="select-value">All companies</span>
+              <span class="select-arrow">▾</span>
+            </div>
+            <div id="companyDropdown" class="custom-dropdown hidden"></div>
+          </div>
+          <div class="filter-item">
+            <label for="roleSelector">Role</label>
+            <div id="roleSelector" class="custom-select" tabindex="0" data-type="role">
+              <span class="select-value">All roles</span>
+              <span class="select-arrow">▾</span>
+            </div>
+            <div id="roleDropdown" class="custom-dropdown hidden"></div>
+          </div>
+          <div class="filter-item">
+            <label for="postedSelect">Posted</label>
+            <select id="postedSelect">
+              <option value="all">All postings</option>
+              <option value="3">Last 3 days</option>
+              <option value="7">Last 7 days</option>
+              <option value="30">Last 30 days</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <label>Job type</label>
+            <div class="button-group" id="jobTypeButtons">
+              <button type="button" data-type="All" class="type-button active">All</button>
+              <button type="button" data-type="Remote" class="type-button">Remote</button>
+              <button type="button" data-type="Hybrid" class="type-button">Hybrid</button>
+              <button type="button" data-type="Onsite" class="type-button">Onsite</button>
+            </div>
+          </div>
+          <div class="filter-item">
+            <label for="sortSelect">Sort by</label>
+            <select id="sortSelect">
+              <option value="latest">Latest posting</option>
+              <option value="salaryHigh">Salary high to low</option>
+              <option value="salaryLow">Salary low to high</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button id="clearFilters" class="clear-button" type="button">Clear filters</button>
+        </div>
+      </section>
+
+      <main class="content-area">
+        <section class="jobs-section">
+          <div class="section-header">
+            <div>
+              <h2>Available jobs</h2>
+              <p id="resultSummary">Showing all jobs</p>
+            </div>
+            <div class="section-label">Updated instantly</div>
+          </div>
+          <div id="jobGrid" class="job-grid"></div>
+        </section>
+
+        <aside class="saved-panel">
+          <div class="section-header">
+            <div>
+              <h2>Saved jobs</h2>
+              <p>Bookmark roles and return to them anytime.</p>
+            </div>
+          </div>
+          <div id="savedList" class="saved-list"></div>
+        </aside>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+
+    <div id="applicationModal" class="modal hidden">
+      <div id="modalBackdrop" class="modal-backdrop"></div>
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div>
+            <h3>Apply for <span id="modalJobTitle">Role</span></h3>
+            <p>Fill in your details below to complete your application.</p>
+          </div>
+          <button id="modalClose" class="close-button" type="button">×</button>
+        </div>
+        <form id="applicationForm" class="application-form">
+          <input type="hidden" id="modalJobId" />
+          <div class="form-row">
+            <label for="applicantName">Full name</label>
+            <input id="applicantName" name="name" type="text" placeholder="Jane Doe" required />
+          </div>
+          <div class="form-row">
+            <label for="applicantEmail">Email address</label>
+            <input id="applicantEmail" name="email" type="email" placeholder="jane@example.com" required />
+          </div>
+          <div class="form-row">
+            <label for="applicantPhone">Phone number</label>
+            <input id="applicantPhone" name="phone" type="tel" placeholder="123-456-7890" required />
+          </div>
+          <div class="form-row">
+            <label for="applicantExperience">Years of experience</label>
+            <input id="applicantExperience" name="experience" type="number" min="0" max="50" placeholder="4" required />
+          </div>
+          <div class="form-row">
+            <label for="applicantMessage">Brief message</label>
+            <textarea id="applicantMessage" name="message" rows="3" placeholder="Tell us why you are a great fit"></textarea>
+          </div>
+          <div class="modal-actions">
+            <button class="action-button" type="submit">Submit application</button>
+            <button class="clear-button" type="button" id="modalCancel">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="job-portal.js"></script>
+  </body>
+</html>
